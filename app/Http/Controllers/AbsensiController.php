@@ -16,7 +16,7 @@ class AbsensiController extends Controller
         $siswa = User::where('nis', $request->siswa_nis)->first();
     
         if (!$siswa) {
-            return redirect()->route('admin.scan')->with('error', 'Siswa tidak ditemukan!');
+            return redirect()->route('admin.siswa.qrcode')->with('error', 'Siswa tidak ditemukan!');
         }
     
         // Cek apakah sudah absen hari ini
@@ -25,7 +25,7 @@ class AbsensiController extends Controller
             ->first();
     
         if ($existingAbsensi) {
-            return redirect()->route('admin.scan')->with('error', 'Siswa sudah absen hari ini.');
+            return redirect()->route('admin.siswa.qrcode')->with('error', 'Siswa sudah absen hari ini.');
         }
     
         // Simpan absensi baru
@@ -35,7 +35,7 @@ class AbsensiController extends Controller
         ]);
     
         $siswa->update(['status_absen' => true]);
-        return redirect()->route('admin.scan')->with('success', 'Absensi berhasil!');
+        return redirect()->route('admin.siswa.qrcode')->with('success', 'Absensi berhasil!');
     }
     // {
     //     // Ambil user yang lagi login
