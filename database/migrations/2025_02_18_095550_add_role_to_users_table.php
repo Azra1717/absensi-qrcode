@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->string('role')->default('siswa');
             $table->string('qr_code')->nullable();
-            $table->string('nis');
-
+            // $table->string('nis');
      });
     }
     
