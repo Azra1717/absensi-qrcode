@@ -22,29 +22,17 @@ Route::get('/login', function () {
     return view('auth.login');
 });
 
-// Proses login
+
 Route::post('/login', [AuthController::class, 'login'])->name('login.submit');
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Admin routes
 Route::middleware(['auth', 'role:admin'])->group(function () {
-    // Menampilkan daftar siswa
     Route::get('/admin/siswa', [AdminController::class, 'index']);
-    
-    // Menampilkan form tambah siswa
     Route::get('/admin/siswa/create', [AdminController::class, 'create']);
-    
-    // Menyimpan siswa baru
     Route::post('/admin/siswa', [AdminController::class, 'store']);
-    
-    // Menampilkan form edit siswa
     Route::get('/admin/siswa/{id}/edit', [AdminController::class, 'edit']);
-    
-    // Memperbarui data siswa
     Route::put('/admin/siswa/{id}', [AdminController::class, 'update']);
-    
-    // Menghapus siswa
     Route::delete('/admin/siswa/{id}', [AdminController::class, 'destroy']);
     Route::get('/admin/siswa/qrcode', function () {
         return view('siswa.absen');

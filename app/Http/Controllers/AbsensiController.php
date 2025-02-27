@@ -6,7 +6,7 @@ use App\Models\Absen;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
-use Illuminate\Support\Facades\Auth; // Tambahin ini di atas
+// use Illuminate\Support\Facades\Auth; 
 
 class AbsensiController extends Controller
 {
@@ -19,7 +19,6 @@ class AbsensiController extends Controller
             return redirect()->route('admin.siswa.qrcode')->with('error', 'Siswa tidak ditemukan!');
         }
     
-        // Cek apakah sudah absen hari ini
         $existingAbsensi = Absen::where('siswa_id', $siswa->id)
             ->whereDate('tanggal', Carbon::today())
             ->first();
@@ -28,7 +27,6 @@ class AbsensiController extends Controller
             return redirect()->route('admin.siswa.qrcode')->with('error', 'Siswa sudah absen hari ini.');
         }
     
-        // Simpan absensi baru
         Absen::create([
             'siswa_id' => $siswa->id,
             'tanggal' => Carbon::now(),

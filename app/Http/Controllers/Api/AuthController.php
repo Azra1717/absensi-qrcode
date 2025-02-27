@@ -30,7 +30,6 @@ class AuthController extends Controller
         return response()->json(['token' => $token, 'user' => $user, 'role' => $user->role]);
     }
 
-    // Login User
     public function login(Request $request)
     {
         $request->validate([
@@ -51,14 +50,12 @@ class AuthController extends Controller
         return response()->json(['token' => $token, 'user' => $user]);
     }
 
-    // Logout User
     public function logout(Request $request)
     {
         $request->user()->tokens()->delete();
         return response()->json(['message' => 'Logout berhasil.']);
     }
 
-    // Cek User Login
     public function me(Request $request)
     {
         $siswa = Auth::user(); 

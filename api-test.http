@@ -3,10 +3,10 @@
 # Authorization: Bearer 9|Sh9vBfhuABWvW0xjZvmJnUvEiwA9eaQmVUjItwdVfa38a12f
 # Accept: application/json
 
-GET  http://127.0.0.1:8000/api/admin/siswa/qrcode
-Content-Type: application/json
-Authorization: Bearer 11|FyRwqedewnyMx6QI9Xd4zTmxp1TLR2yD9nJ1J7igfccd9b20
-Accept: application/json
+# GET  http://127.0.0.1:8000/api/admin/siswa/qrcode
+# Content-Type: application/json
+# Authorization: Bearer 11|FyRwqedewnyMx6QI9Xd4zTmxp1TLR2yD9nJ1J7igfccd9b20
+# Accept: application/json
 
 # POST http://127.0.0.1:8000/api/login
 # Content-Type: application/json
@@ -14,6 +14,14 @@ Accept: application/json
 # Accept: application/json
 
 # {
-#   "email": "hahahah@gmail.com",
+#   "email": "admin@gmail.com",
 #   "password": "password"
 # }
+POST http://127.0.0.1:8000/api/admin/scanQr
+Content-Type: application/json
+Authorization: Bearer 31|WJLPnTO2VPMz8Nguub0gsKOu9zkOTpzeOeDUOf2E8be60c60
+Accept: application/json
+
+{
+  "siswa_nis": "4567845678"
+}

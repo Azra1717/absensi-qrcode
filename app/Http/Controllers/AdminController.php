@@ -12,14 +12,11 @@ class AdminController extends Controller
 {
     public function index(Request $request)
     {
-        // Ambil input dari form pencarian dan filter
         $search = $request->input('search');
         $tanggal = $request->input('tanggal');
     
-        // Query dasar
         $query = User::where('role', 'siswa');
     
-        // Jika ada pencarian berdasarkan nama atau email
         if ($search) {
             $query->where(function ($q) use ($search) {
                 $q->where('name', 'LIKE', "%$search%")
@@ -27,12 +24,10 @@ class AdminController extends Controller
             });
         }
     
-        // Jika ada filter berdasarkan tanggal pendaftaran
         if ($tanggal) {
             $query->whereDate('created_at', $tanggal);
         }
     
-        // Paginate hasil pencarian
         $siswa = $query->paginate(10);
     
         return view('admin.siswa.index', compact('siswa', 'search', 'tanggal'));
@@ -54,10 +49,8 @@ class AdminController extends Controller
             'role' => 'siswa',
         ]);
     
-        // Generate QR Code menggunakan nis siswa
-        $qrCode = QrCode::size(200)->generate($siswa->email);  // Menggunakan nis untuk QR Code
+        $qrCode = QrCode::size(200)->generate($siswa->email);
         
-        // Menyimpan QR code ke dalam model siswa
         $siswa->qr_code = $qrCode;
         $siswa->save();
     
@@ -109,14 +102,12 @@ class AdminController extends Controller
     {
         $query = Absen::with('siswa')->orderBy('tanggal', 'desc');
     
-        // Filter berdasarkan nama siswa
         if ($request->filled('search')) {
             $query->whereHas('siswa', function ($q) use ($request) {
                 $q->where('name', 'like', '%' . $request->search . '%');
             });
         }
     
-        // Filter berdasarkan tanggal
         if ($request->filled('tanggal')) {
             $query->whereDate('tanggal', $request->tanggal);
         }

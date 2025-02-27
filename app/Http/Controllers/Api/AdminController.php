@@ -39,7 +39,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // Menyimpan data siswa baru
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -64,7 +63,6 @@ class AdminController extends Controller
             'role' => 'siswa',
         ]);
 
-        // Generate QR Code menggunakan email
         $qrCode = QrCode::size(200)->generate($siswa->nis);
         $siswa->qr_code = $qrCode;
         $siswa->save();
@@ -76,7 +74,6 @@ class AdminController extends Controller
         ], 201);
     }
 
-    // Menampilkan detail siswa
     public function show($id)
     {
         $siswa = User::where('role', 'siswa')->find($id);
@@ -90,7 +87,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // Mengupdate data siswa
     public function update(Request $request, $id)
     {
         $siswa = User::where('role', 'siswa')->find($id);
@@ -107,7 +103,6 @@ class AdminController extends Controller
         ]);
     }
 
-    // Menghapus siswa
     public function destroy($id)
     {
         $siswa = User::where('role', 'siswa')->find($id);
@@ -119,7 +114,6 @@ class AdminController extends Controller
         return response()->json(['status' => 'success', 'message' => 'Siswa berhasil dihapus!']);
     }
 
-    // Laporan absensi siswa
     public function laporan(Request $request)
     {
         $query = Absen::with('siswa')->orderBy('tanggal', 'desc');

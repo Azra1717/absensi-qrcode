@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AbsensiController;
 use App\Http\Controllers\Api\AdminController;
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\SiswaController;
@@ -29,6 +30,7 @@ Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::put('/admin/siswa/{id}', [AdminController::class, 'update']);
     Route::delete('/admin/siswa/{id}', [AdminController::class, 'destroy']);
     Route::get('/admin/laporan', [AdminController::class, 'laporan']);
+    Route::post('/admin/scanQr', [AbsensiController::class, 'scanQR']);
 });
 
 
@@ -39,9 +41,9 @@ Route::middleware(['auth:sanctum', 'role:siswa'])->group(function () {
 
 Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
-    Route::get('/me', [AuthController::class, 'me']);
+Route::get('/me', [AuthController::class, 'me']);
+Route::post('/logout', [AuthController::class, 'logout']);
 
 // Protected Routes (Harus Login)
 // Route::middleware('auth:sanctum')->group(function () {
-//     Route::post('/logout', [AuthController::class, 'logout']);
 // });
